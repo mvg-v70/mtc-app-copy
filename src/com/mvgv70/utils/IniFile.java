@@ -29,38 +29,38 @@ public class IniFile
       while ((line = br.readLine()) != null)
       {
         // разбираем по строкам
-       if (line.trim().isEmpty())
-       {
-         // пустая строка
-       }
-       else if (line.startsWith("#"))
-       {
-         // комментарий
-       }
-       else if (line.startsWith(";"))
-       {
-         // комментарий
-       }
-       else if (line.startsWith("["))
-       {
-         // секция
-         section = line.substring(1,line.lastIndexOf("]")).trim();
-         ini_file.put(section, new ArrayList<String>());
-       }
-       else
-       {
-         // значение
-    	 int equalIndex = line.indexOf("=");
-    	 if (equalIndex > 0)
-    	 {
-    	   String key = line.substring(0,equalIndex).trim();
-           String value = line.substring(equalIndex+1).trim();
-           ini_file.get(section).add(key+"="+value);
-    	 }
-    	 else
-    	   ini_file.get(section).add(line);
-       }
-     }
+        if (line.trim().isEmpty())
+        {
+          // пустая строка
+        }
+        else if (line.startsWith("#"))
+        {
+          // комментарий
+        }
+        else if (line.startsWith(";"))
+        {
+          // комментарий
+        }
+        else if (line.startsWith("["))
+        {
+          // секция
+          section = line.substring(1,line.lastIndexOf("]")).trim();
+          ini_file.put(section, new ArrayList<String>());
+        }
+        else
+        {
+          // значение
+          int equalIndex = line.indexOf("=");
+          if (equalIndex > 0)
+          {
+            String key = line.substring(0,equalIndex).trim();
+            String value = line.substring(equalIndex+1).trim();
+            ini_file.get(section).add(key+"="+value);
+         }
+          else
+           ini_file.get(section).add(line);
+        }
+      }
     }
     finally
     {
@@ -76,6 +76,11 @@ public class IniFile
   public Iterator<String> enumLines(String section)
   {
     return ini_file.get(section).iterator();
+  }
+  
+  public int linesCount(String section)
+  {
+    return ini_file.get(section).size();
   }
   
   public String getStringKey(String line)
